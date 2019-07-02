@@ -1,0 +1,11 @@
+management:
+  endpoints:
+    web:
+      base-path: /manage
+      exposure:
+        include: "*"
+        
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate: DEBUG
