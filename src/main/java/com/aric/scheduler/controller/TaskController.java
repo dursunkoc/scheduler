@@ -3,6 +3,10 @@
  */
 package com.aric.scheduler.controller;
 
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +43,15 @@ public class TaskController {
 	@Transactional
 	public Task createTask(@RequestBody Task task) {
 		log.info("Creating Task ({})", task);
+		
+		Set<Task> predecessors = task.getPredecessors()
+				.stream()
+				.map(Task::getId)
+				.map(taskRepository::findById)
+				.map(Optional::get)
+				.collect(Collectors.toSet());
+		
+		task.setPredecessors(predecessors);
 		Task saved = taskRepository.save(task);
 		return saved;
 	}

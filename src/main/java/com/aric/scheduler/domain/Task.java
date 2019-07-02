@@ -1,22 +1,32 @@
 package com.aric.scheduler.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
-import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author dursunkoc
  *
  */
-@Data
+@Setter(AccessLevel.PUBLIC)
+@Getter(AccessLevel.PUBLIC)
 @Entity
-public class Task {
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Id
-	private Long id;
+public class Task extends Auditable<String> {
+
 	private String name;
 	private String description;
+
+	@ManyToMany()
+	@JoinTable(name = "TaskRel", joinColumns = { @JoinColumn(name = "predecessorId") }, inverseJoinColumns = {
+			@JoinColumn(name = "successorId") })
+	private Set<Task> predecessors = new HashSet<Task>();
+
 }

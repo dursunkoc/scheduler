@@ -9,3 +9,9 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+    
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
