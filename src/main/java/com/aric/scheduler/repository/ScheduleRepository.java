@@ -3,6 +3,8 @@
  */
 package com.aric.scheduler.repository;
 
+import java.util.Date;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.aric.scheduler.domain.Schedule;
@@ -12,5 +14,11 @@ import com.aric.scheduler.domain.Schedule;
  *
  */
 public interface ScheduleRepository extends CrudRepository<Schedule, Long> {
+
+	public Schedule findByScheduleDate(Date scheduleDate);
+
+	public Iterable<Schedule> findByPlanName(String planName);
+
+	public Schedule findByPlanNameAndScheduleDate(String planName, Date scheduleDate);
 
 }

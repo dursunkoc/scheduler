@@ -23,8 +23,9 @@ public class Task extends Auditable<String> {
 
 	private String name;
 	private String description;
+	private String planName;
 
-	@ManyToMany()
+	@ManyToMany
 	@JoinTable(name = "TaskRel", joinColumns = { @JoinColumn(name = "predecessorId") }, inverseJoinColumns = {
 			@JoinColumn(name = "successorId") })
 	private Set<Task> predecessors = new HashSet<Task>();
